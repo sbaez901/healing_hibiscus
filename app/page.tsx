@@ -9,337 +9,646 @@ export default function Home() {
     "Women's Issues",
     'Healing from Abuse',
     'Cultural/Racial Issues',
-    'Family Conflict',
+    'Family Conflict or Estrangement',
     'Life Transitions',
     'Trauma/PTSD',
     'Anxiety',
-    'Depression'
+    'Depression',
   ];
 
   const services = [
     '1:1 Therapy for Adults',
     'Professional Consulting',
     'Peer Supervision',
-    'Individual Supervision',
-    'Group Supervision',
-    'Educational Workshops'
+    "Individual Supervision for: MSW Interns, LCSW's",
+    'Group Supervision for Non-Profits',
+    'Educational Workshops',
   ];
 
   const serviceCards = [
     {
       title: 'Individual Therapy',
-      description: 'As a mental health therapist, I believe my role is to support you in navigating life, relationships, and mental health in ways that are aligned with your needs and values.'
+      description: 'As a mental health therapist, I believe my role is to support you in navigating life, relationships, and mental health in ways that are aligned with your needs and values.',
+      link: '/therapy',
     },
     {
       title: 'Clinical Supervision',
-      description: 'As a clinical supervisor, I thrive in working collaboratively with my supervisees, acting as a thought partner, coach, mentor, and supervisor.'
+      description: 'As a clinical supervisor, I thrive in working collaboratively with my supervisees, acting as a thought partner, coach, mentor, and supervisor.',
+      link: '/supervision',
     },
     {
       title: 'Training & Consultation',
-      description: 'In my trainings and consultations, I am committed to nurturing a learning environment that fosters critical thinking, self-reflection, and practical skill-building.'
-    }
+      description: 'In my trainings and consultations, I am committed to nurturing a learning environment that fosters critical thinking, self-reflection, and practical skill-building.',
+      link: '/consulting',
+    },
   ];
 
-  return (
-    <main className="w-full min-h-screen bg-white overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="min-h-screen w-full flex flex-col justify-center bg-[#FFF9F5] px-6 md:px-12 relative overflow-hidden">
-        {/* Navigation / Logo Area */}
-        <div className="absolute top-0 left-0 w-full p-6 md:p-12 flex justify-between items-center z-20">
-          <Link href="/">
-            <Image
-              src="/logo.png"
-              alt="The Healing Hibiscus logo"
-              width={128}
-              height={128}
-              className="w-24 md:w-32 h-auto object-contain mix-blend-multiply"
-              priority
-            />
-          </Link>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="hidden md:block border border-primary text-primary px-6 py-2 rounded-full text-sm font-medium hover:bg-primary hover:text-white transition-colors duration-300"
-          >
-            <Link href="/contact">Contact Us</Link>
-          </motion.button>
-        </div>
+  // Animation variants for staggered lists
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10 pt-20">
-          {/* Text Content - Asymmetric Left */}
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8 }
+    },
+  };
+
+  const fadeInScale = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.8 }
+    },
+  };
+
+  const lineGrow = {
+    hidden: { width: 0 },
+    visible: { 
+      width: '80px',
+      transition: { duration: 0.8, delay: 0.3 }
+    },
+  };
+
+  return (
+    <main style={{ width: '100%', backgroundColor: '#F9EFE3', overflowX: 'hidden' }}>
+      
+      {/* ============ HERO SECTION ============ */}
+      <section style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        padding: '80px 40px',
+        backgroundColor: '#F9EFE3',
+        position: 'relative'
+      }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          {/* Logo - no animation to avoid background flash */}
+          <Image
+            src="/logo-transparent.png"
+            alt="The Healing Hibiscus"
+            width={400}
+            height={400}
+            style={{ 
+              margin: '0 auto 40px auto', 
+              width: '400px', 
+              height: 'auto',
+              mixBlendMode: 'darken'
+            }}
+            priority
+          />
+
+          {/* Heading with slide up */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+            style={{ 
+              fontSize: 'clamp(3rem, 8vw, 6rem)', 
+              fontFamily: "'Crimson Text', serif",
+              fontWeight: 700,
+              color: '#1a1a1a', 
+              marginBottom: '40px',
+              lineHeight: 1.1
+            }}
+          >
+            Healing Begins Here.
+          </motion.h1>
+
+          {/* Subheading */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+            style={{ 
+              fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)', 
+              color: '#4a4a4a', 
+              marginBottom: '20px',
+              fontWeight: 300,
+              maxWidth: '700px',
+              margin: '0 auto 20px auto'
+            }}
+          >
+            Therapy available in-person in Shrewsbury, Massachusetts or via telehealth.
+          </motion.p>
+
+          {/* Spanish note */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            style={{ 
+              fontSize: '1.25rem', 
+              color: '#6a6a6a', 
+              fontStyle: 'italic',
+              fontFamily: "'Crimson Text', serif",
+              marginBottom: '60px'
+            }}
+          >
+            Terapia disponible en español!
+          </motion.p>
+
+          {/* CTA Button with hover scale */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-8"
+            transition={{ duration: 0.8, delay: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-primary mb-8 leading-[0.9] tracking-tight font-serif">
-              Healing <br />
-              <span className="text-accent-rose italic font-light">
-                Begins Here.
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-secondary mb-6 max-w-xl font-light leading-relaxed">
-              Therapy available in-person in Shrewsbury, Massachusetts or via
-              telehealth.
-            </p>
-
-            <p className="text-lg text-neutral italic mb-12 font-serif">
-              Terapia disponible en español!
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-accent-rose text-primary px-10 py-4 rounded-full text-lg font-semibold shadow-lg shadow-accent-rose/20 hover:shadow-xl hover:shadow-accent-rose/30 transition-all duration-300"
-              >
-                <Link href="/contact#request">Request Therapy</Link>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-white border border-neutral-light text-secondary px-10 py-4 rounded-full text-lg font-medium hover:border-primary transition-all duration-300"
-              >
-                <Link href="/about">Learn More</Link>
-              </motion.button>
-            </div>
-          </motion.div>
-
-          {/* Visual Element - Right */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-4 hidden lg:block relative"
-          >
-            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-rose/20 to-transparent rounded-2xl"></div>
-              <Image
-                src="/logo.png"
-                alt="Decorative Hibiscus"
-                width={400}
-                height={500}
-                className="absolute -bottom-20 -right-20 w-full h-full object-contain opacity-50 mix-blend-multiply blur-sm scale-150"
-              />
-            </div>
+            <Link
+              href="/contact"
+              style={{ 
+                display: 'inline-block',
+                backgroundColor: '#D4B5B0', 
+                color: '#1a1a1a', 
+                fontSize: '1.25rem',
+                fontWeight: 500,
+                padding: '24px 72px',
+                borderRadius: '12px',
+                textDecoration: 'none',
+                transition: 'box-shadow 0.3s ease'
+              }}
+            >
+              Request Therapy
+            </Link>
           </motion.div>
         </div>
+
+        {/* Scroll Down Arrow */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 1 }}
+          style={{
+            position: 'absolute',
+            bottom: '60px',
+            left: '50%',
+            transform: 'translateX(-50%)'
+          }}
+        >
+          <motion.svg
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#6a6a6a"
+            strokeWidth="1.5"
+            style={{ cursor: 'pointer' }}
+            onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+          >
+            <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+          </motion.svg>
+        </motion.div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-32 md:py-40 bg-white w-full">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-            {/* Section Header - Sticky on Desktop */}
-            <div className="lg:col-span-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="lg:sticky lg:top-32"
-              >
-                <h2 className="text-5xl md:text-6xl font-bold text-primary mb-6 font-serif leading-tight">
-                  Our <br /> Services
-                </h2>
-                <p className="text-lg text-secondary leading-relaxed mb-8 max-w-sm">
-                  Comprehensive mental health support tailored to your unique
-                  journey and needs.
-                </p>
-                <div className="h-px w-24 bg-accent-rose"></div>
-              </motion.div>
-            </div>
 
-            {/* Content Grid */}
-            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-              {/* Specializations */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <h3 className="text-2xl font-serif font-semibold text-primary mb-8 flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-accent-rose"></span>
-                  Specializing in
-                </h3>
-                <ul className="space-y-4">
-                  {specializations.map((item, index) => (
-                    <li key={index} className="text-lg text-secondary py-2 border-b border-neutral-light/50 last:border-0">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
 
-              {/* Services Include */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+      {/* ============ SERVICES OVERVIEW ============ */}
+      <section style={{ 
+        padding: '160px 40px', 
+        backgroundColor: '#E8E4E0'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          
+          {/* Section Header with animated underline */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            style={{ textAlign: 'center', marginBottom: '120px' }}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              style={{ 
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                fontFamily: "'Crimson Text', serif",
+                fontWeight: 700,
+                color: '#1a1a1a', 
+                marginBottom: '24px'
+              }}
+            >
+              Our Services
+            </motion.h2>
+            <motion.div 
+              variants={lineGrow}
+              style={{ height: '4px', backgroundColor: '#D4B5B0', margin: '0 auto', borderRadius: '2px' }}
+            />
+          </motion.div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+            gap: '80px'
+          }}>
+            
+            {/* Specializations with staggered list */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+            >
+              <motion.h3 
+                variants={fadeInUp}
+                style={{ 
+                  fontSize: '2rem', 
+                  fontFamily: "'Crimson Text', serif",
+                  fontWeight: 600,
+                  color: '#1a1a1a', 
+                  marginBottom: '40px',
+                  paddingBottom: '20px',
+                  borderBottom: '3px solid #D4B5B0'
+                }}
               >
-                <h3 className="text-2xl font-serif font-semibold text-primary mb-8 flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-neutral"></span>
-                  Services Include
-                </h3>
-                <ul className="space-y-4">
-                  {services.map((item, index) => (
-                    <li key={index} className="text-lg text-secondary py-2 border-b border-neutral-light/50 last:border-0">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
+                Specializing in:
+              </motion.h3>
+              <motion.ul 
+                variants={containerVariants}
+                style={{ listStyle: 'none', padding: 0, margin: 0 }}
+              >
+                {specializations.map((item, i) => (
+                  <motion.li 
+                    key={i} 
+                    variants={itemVariants}
+                    whileHover={{ x: 10, transition: { duration: 0.2 } }}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      fontSize: '1.125rem', 
+                      color: '#4a4a4a',
+                      marginBottom: '20px',
+                      cursor: 'default'
+                    }}
+                  >
+                    <motion.span 
+                      whileHover={{ scale: 1.5 }}
+                      style={{ 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#D4B5B0', 
+                        borderRadius: '50%', 
+                        marginRight: '20px',
+                        flexShrink: 0,
+                        transition: 'transform 0.3s ease'
+                      }}
+                    />
+                    {item}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+
+            {/* Services Include with staggered list */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+            >
+              <motion.h3 
+                variants={fadeInUp}
+                style={{ 
+                  fontSize: '2rem', 
+                  fontFamily: "'Crimson Text', serif",
+                  fontWeight: 600,
+                  color: '#1a1a1a', 
+                  marginBottom: '40px',
+                  paddingBottom: '20px',
+                  borderBottom: '3px solid #D4B5B0'
+                }}
+              >
+                Services Include:
+              </motion.h3>
+              <motion.ul 
+                variants={containerVariants}
+                style={{ listStyle: 'none', padding: 0, margin: 0 }}
+              >
+                {services.map((item, i) => (
+                  <motion.li 
+                    key={i} 
+                    variants={itemVariants}
+                    whileHover={{ x: 10, transition: { duration: 0.2 } }}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      fontSize: '1.125rem', 
+                      color: '#4a4a4a',
+                      marginBottom: '20px',
+                      cursor: 'default'
+                    }}
+                  >
+                    <motion.span 
+                      whileHover={{ scale: 1.5, backgroundColor: '#D4B5B0' }}
+                      style={{ 
+                        width: '12px', 
+                        height: '12px', 
+                        backgroundColor: '#6a6a6a', 
+                        borderRadius: '50%', 
+                        marginRight: '20px',
+                        flexShrink: 0,
+                        transition: 'all 0.3s ease'
+                      }}
+                    />
+                    {item}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Service Cards Section */}
-      <section className="py-32 md:py-40 bg-[#FFF9F5] w-full">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {serviceCards.map((card, index) => (
+
+
+      {/* ============ SERVICE CARDS ============ */}
+      <section style={{ 
+        padding: '160px 40px', 
+        backgroundColor: '#F9EFE3'
+      }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+            gap: '40px'
+          }}>
+            {serviceCards.map((card, i) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
-                className="group relative bg-white p-8 md:p-10 rounded-3xl h-full flex flex-col transition-all duration-500 hover:shadow-2xl hover:shadow-neutral-light/50 border border-transparent hover:border-neutral-light/50"
+                key={i}
+                initial={{ opacity: 0, y: 80, rotateX: 10 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.8, delay: i * 0.2, ease: 'easeOut' }}
+                whileHover={{ 
+                  y: -10, 
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                  transition: { duration: 0.3 }
+                }}
+                style={{ 
+                  backgroundColor: 'white', 
+                  borderRadius: '20px', 
+                  padding: '48px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transformStyle: 'preserve-3d'
+                }}
               >
-                <h3 className="text-3xl font-serif font-bold text-primary mb-6 group-hover:text-accent-rose transition-colors duration-300">
+                <h3 style={{ 
+                  fontSize: '1.75rem', 
+                  fontFamily: "'Crimson Text', serif",
+                  fontWeight: 700,
+                  color: '#1a1a1a', 
+                  marginBottom: '24px'
+                }}>
                   {card.title}
                 </h3>
-                <p className="text-lg text-secondary leading-relaxed mb-8 flex-grow font-light">
+                <p style={{ 
+                  color: '#4a4a4a', 
+                  lineHeight: 1.7, 
+                  marginBottom: '32px',
+                  flexGrow: 1,
+                  fontSize: '1.0625rem'
+                }}>
                   {card.description}
                 </p>
-                <div className="mt-auto pt-8 border-t border-neutral-light/30">
-                  <span className="text-sm font-medium text-primary uppercase tracking-wider group-hover:text-accent-rose transition-colors duration-300">
-                    Learn More
-                  </span>
-                </div>
+                <motion.div whileHover={{ x: 5 }}>
+                  <Link
+                    href={card.link}
+                    style={{ 
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      color: '#D4B5B0', 
+                      fontWeight: 500,
+                      textDecoration: 'none',
+                      fontSize: '1.0625rem'
+                    }}
+                  >
+                    Learn more
+                    <svg style={{ marginLeft: '8px', width: '20px', height: '20px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </motion.div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-32 md:py-40 bg-white w-full overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left: Heading & Visual */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="relative"
-            >
-              <h2 className="text-5xl md:text-7xl font-bold text-primary mb-8 font-serif leading-none">
-                About <br />
-                <span className="text-accent-rose italic">
-                  The Healing Hibiscus
-                </span>
-              </h2>
-              <div className="w-full h-px bg-neutral-light mb-8"></div>
-              <p className="text-sm font-medium text-neutral uppercase tracking-widest">
-                Authenticity • Non-Judgement • Transformation
-              </p>
-            </motion.div>
 
-            {/* Right: Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-              className="lg:pl-12"
-            >
-              <p className="text-xl md:text-2xl text-secondary leading-relaxed font-light mb-12">
-                &quot;As a politicized healer, I believe therapy can be a
-                transformational and liberating process. I welcome you to bring
-                your whole self, by creating a space where you will be met with
-                authenticity and non-judgement.&quot;
-              </p>
 
-              <motion.button
-                whileHover={{ scale: 1.02, x: 5 }}
-                whileTap={{ scale: 0.98 }}
-                className="group flex items-center gap-4 text-primary font-semibold text-lg"
-              >
-                <Link href="/about" className="flex items-center gap-4">
-                  <span className="border-b-2 border-accent-rose pb-1 group-hover:border-primary transition-colors duration-300">
-                    Learn More About Me
-                  </span>
-                  <span className="text-accent-rose group-hover:translate-x-2 transition-transform duration-300">
-                    →
-                  </span>
-                </Link>
-              </motion.button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-32 md:py-40 bg-[#FFF9F5] w-full">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+      {/* ============ ABOUT SECTION ============ */}
+      <section style={{ 
+        padding: '160px 40px', 
+        backgroundColor: '#E8E4E0'
+      }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="bg-primary rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
           >
-            {/* Decorative Background Element */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-              <div className="absolute top-[-50%] left-[-20%] w-[80%] h-[150%] rounded-full bg-accent-rose blur-[100px]"></div>
-            </div>
+            <motion.h2 
+              variants={fadeInUp}
+              style={{ 
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                fontFamily: "'Crimson Text', serif",
+                fontWeight: 700,
+                color: '#1a1a1a', 
+                marginBottom: '32px'
+              }}
+            >
+              About The Healing Hibiscus
+            </motion.h2>
+            
+            <motion.div 
+              initial={{ width: 0 }}
+              whileInView={{ width: '60px' }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              style={{ height: '4px', backgroundColor: '#D4B5B0', margin: '0 auto 60px auto', borderRadius: '2px' }}
+            />
 
-            <div className="relative z-10">
-              <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 font-serif">
-                Ready to Begin?
-              </h2>
+            <motion.p 
+              variants={fadeInScale}
+              style={{ 
+                fontSize: 'clamp(1.25rem, 2.5vw, 1.625rem)', 
+                color: '#4a4a4a', 
+                lineHeight: 1.8,
+                fontWeight: 300,
+                marginBottom: '60px'
+              }}
+            >
+              "As a politicized healer, I believe therapy can be a transformational and liberating process. 
+              I welcome you to bring your whole self, by creating a space where you will be met with 
+              authenticity and non-judgement."
+            </motion.p>
 
-              <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-light">
-                Contact us today to schedule a consultation or learn more about
-                our services.
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-accent-rose text-primary px-12 py-5 rounded-full text-xl font-semibold hover:bg-white transition-colors duration-300"
-                >
-                  <Link href="/contact#request">Request Therapy</Link>
-                </motion.button>
-
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-transparent border border-white/30 text-white px-12 py-5 rounded-full text-xl font-medium hover:bg-white/10 transition-colors duration-300"
-                >
-                  <Link href="/contact">Contact Us</Link>
-                </motion.button>
-              </div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link
+                href="/about"
+                style={{ 
+                  display: 'inline-block',
+                  backgroundColor: '#D4B5B0', 
+                  color: '#1a1a1a', 
+                  fontSize: '1.25rem',
+                  fontWeight: 500,
+                  padding: '24px 72px',
+                  borderRadius: '12px',
+                  textDecoration: 'none'
+                }}
+              >
+                Learn More About Me
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Simple Footer */}
-      <footer className="py-8 bg-white border-t border-neutral-light text-center">
-        <p className="text-neutral text-sm">
-          © {new Date().getFullYear()} The Healing Hibiscus. All rights
-          reserved.
+
+
+      {/* ============ CTA SECTION ============ */}
+      <section style={{ 
+        padding: '200px 40px', 
+        backgroundColor: '#F9EFE3'
+      }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            <motion.h2 
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              style={{ 
+                fontSize: 'clamp(2.5rem, 6vw, 5rem)', 
+                fontFamily: "'Crimson Text', serif",
+                fontWeight: 700,
+                color: '#1a1a1a', 
+                marginBottom: '40px',
+                lineHeight: 1.15
+              }}
+            >
+              Ready to Begin Your Healing Journey?
+            </motion.h2>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{ 
+                fontSize: 'clamp(1.125rem, 2vw, 1.5rem)', 
+                color: '#6a6a6a', 
+                marginBottom: '60px',
+                maxWidth: '700px',
+                margin: '0 auto 60px auto',
+                fontWeight: 300
+              }}
+            >
+              Contact us today to schedule a consultation or learn more about our services.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px' }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/contact"
+                  style={{ 
+                    display: 'inline-block',
+                    backgroundColor: '#D4B5B0', 
+                    color: '#1a1a1a', 
+                    fontSize: '1.25rem',
+                    fontWeight: 500,
+                    padding: '24px 72px',
+                    borderRadius: '12px',
+                    textDecoration: 'none'
+                  }}
+                >
+                  Request Therapy
+                </Link>
+              </motion.div>
+
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/contact"
+                  style={{ 
+                    display: 'inline-block',
+                    border: '2px solid #D4B5B0',
+                    backgroundColor: 'transparent',
+                    color: '#1a1a1a', 
+                    fontSize: '1.25rem',
+                    fontWeight: 500,
+                    padding: '22px 70px',
+                    borderRadius: '12px',
+                    textDecoration: 'none'
+                  }}
+                >
+                  Contact Us
+                </Link>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+
+
+      {/* ============ FOOTER ============ */}
+      <motion.footer 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        style={{ 
+          padding: '48px 40px', 
+          backgroundColor: '#F9EFE3', 
+          borderTop: '1px solid #e5e5e5',
+          textAlign: 'center'
+        }}
+      >
+        <p style={{ color: '#6a6a6a', fontSize: '0.875rem' }}>
+          © {new Date().getFullYear()} The Healing Hibiscus. All rights reserved.
         </p>
-      </footer>
+      </motion.footer>
     </main>
   );
 }

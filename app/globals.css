@@ -2,34 +2,30 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color Palette - Matching Reference Design */
-  --color-primary: #000000;
-  --color-primary-dark: #000000;
-  --color-secondary: #3D3D3D;
-  --color-secondary-dark: #3D3D3D;
-  --color-neutral: #7A7A7A;
-  --color-neutral-medium: #7A7A7A;
-  --color-neutral-light: #E8E8E8;
+  /* Minimal Modern Color Palette */
+  --color-primary: #1a1a1a;
+  --color-secondary: #4a4a4a;
+  --color-neutral: #6a6a6a;
+  --color-neutral-light: #e5e5e5;
   --color-neutral-lighter: #F5F5F5;
-  --color-accent: #D4B5B0;
   --color-accent-rose: #D4B5B0;
   
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --font-serif: 'Crimson Text', serif;
   
-  --color-background: #FFFFFF;
+  --color-background: #FBF4EC;
   --color-foreground: var(--color-primary);
 }
 
 html {
   scroll-behavior: smooth;
+  background: #F9EFE3 !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background: #F9EFE3 !important;
+  color: var(--color-foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,6 +33,8 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Crimson Text', serif;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 * {

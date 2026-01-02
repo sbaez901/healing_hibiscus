@@ -16,7 +16,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo.png"
+              src="/logo-transparent.png"
               alt="The Healing Hibiscus"
               width={180}
               height={60}
