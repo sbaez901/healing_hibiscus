@@ -1,26 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
-:root {
+@theme {
   /* Color Palette - Matching Reference Design */
-  --color-primary: #000000; /* Black */
-  --color-secondary: #3D3D3D; /* Dark Charcoal */
-  --color-neutral: #7A7A7A; /* Medium Grey */
-  --color-neutral-light: #E8E8E8; /* Light Grey */
-  --color-neutral-lighter: #F5F5F5; /* Lighter Grey */
-  --color-accent-rose: #D4B5B0; /* Dusty Rose */
-  --color-bg-cream: #FFF9F5; /* Cream background */
+  --color-primary: oklch(0% 0 0);
+  --color-primary-dark: oklch(0% 0 0);
+  --color-secondary: oklch(30% 0 0);
+  --color-secondary-dark: oklch(30% 0 0);
+  --color-neutral: oklch(55% 0 0);
+  --color-neutral-medium: oklch(55% 0 0);
+  --color-neutral-light: oklch(92% 0 0);
+  --color-neutral-lighter: oklch(96% 0 0);
+  --color-accent: oklch(75% 0.05 30);
+  --color-accent-rose: oklch(75% 0.05 30);
   
-  /* Semantic colors */
-  --background: #FFFFFF;
-  --foreground: var(--color-primary);
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: 'Crimson Text', serif;
+  
+  --color-background: oklch(100% 0 0);
+  --color-foreground: var(--color-primary);
 }
 
 html {
