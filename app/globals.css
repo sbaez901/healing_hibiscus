@@ -1,21 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* Color Palette */
-  --color-red: #C41E3A; /* Primary accent - red */
-  --color-black: #000000; /* Text/headers - black */
-  --color-charcoal: #2C2C2C; /* Dark charcoal grey - secondary text */
-  --color-grey-dark: #4A4A4A; /* Medium dark grey - borders/dividers */
-  --color-pink-peach: #F5D7C4; /* Light muted pink/peach - backgrounds/highlights */
-  --color-grey-light: #F5F5F0; /* Light grey/off-white - main backgrounds */
+  /* Color Palette - Matching Reference Design */
+  --color-primary: #000000; /* Black */
+  --color-secondary: #3D3D3D; /* Dark Charcoal */
+  --color-neutral: #7A7A7A; /* Medium Grey */
+  --color-neutral-light: #E8E8E8; /* Light Grey */
+  --color-neutral-lighter: #F5F5F5; /* Lighter Grey */
+  --color-accent-rose: #D4B5B0; /* Dusty Rose */
+  --color-bg-cream: #FFF9F5; /* Cream background */
   
   /* Semantic colors */
-  --background: var(--color-grey-light);
-  --foreground: var(--color-black);
-  --text-secondary: var(--color-charcoal);
-  --text-muted: var(--color-grey-dark);
-  --accent: var(--color-red);
-  --highlight: var(--color-pink-peach);
+  --background: #FFFFFF;
+  --foreground: var(--color-primary);
 }
 
 @theme inline {
@@ -25,11 +23,21 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Crimson Text', serif;
 }
 
 * {
