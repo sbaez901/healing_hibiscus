@@ -3,22 +3,22 @@
 
 @theme {
   /* Color Palette - Matching Reference Design */
-  --color-primary: oklch(0% 0 0);
-  --color-primary-dark: oklch(0% 0 0);
-  --color-secondary: oklch(30% 0 0);
-  --color-secondary-dark: oklch(30% 0 0);
-  --color-neutral: oklch(55% 0 0);
-  --color-neutral-medium: oklch(55% 0 0);
-  --color-neutral-light: oklch(92% 0 0);
-  --color-neutral-lighter: oklch(96% 0 0);
-  --color-accent: oklch(75% 0.05 30);
-  --color-accent-rose: oklch(75% 0.05 30);
+  --color-primary: #000000;
+  --color-primary-dark: #000000;
+  --color-secondary: #3D3D3D;
+  --color-secondary-dark: #3D3D3D;
+  --color-neutral: #7A7A7A;
+  --color-neutral-medium: #7A7A7A;
+  --color-neutral-light: #E8E8E8;
+  --color-neutral-lighter: #F5F5F5;
+  --color-accent: #D4B5B0;
+  --color-accent-rose: #D4B5B0;
   
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: 'Crimson Text', serif;
   
-  --color-background: oklch(100% 0 0);
+  --color-background: #FFFFFF;
   --color-foreground: var(--color-primary);
 }
 
