@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  /* Color Palette */
+  --color-red: #C41E3A; /* Primary accent - red */
+  --color-black: #000000; /* Text/headers - black */
+  --color-charcoal: #2C2C2C; /* Dark charcoal grey - secondary text */
+  --color-grey-dark: #4A4A4A; /* Medium dark grey - borders/dividers */
+  --color-pink-peach: #F5D7C4; /* Light muted pink/peach - backgrounds/highlights */
+  --color-grey-light: #F5F5F0; /* Light grey/off-white - main backgrounds */
+  
+  /* Semantic colors */
+  --background: var(--color-grey-light);
+  --foreground: var(--color-black);
+  --text-secondary: var(--color-charcoal);
+  --text-muted: var(--color-grey-dark);
+  --accent: var(--color-red);
+  --highlight: var(--color-pink-peach);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
