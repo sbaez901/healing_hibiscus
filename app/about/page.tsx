@@ -156,6 +156,21 @@ export default function AboutPage() {
               <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
                 In 2025, I made the decision to begin private practice and established The Healing Hibiscus, PLLC. The official flower of Puerto Rico is the Flor de Maga, which is informally referred to as the &ldquo;Puerto Rican hibiscus.&rdquo;
               </p>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+                <Image
+                  src="/hibiscus-flower.png"
+                  alt="Flor de Maga — the Puerto Rican hibiscus"
+                  width={500}
+                  height={375}
+                  style={{
+                    width: '100%',
+                    maxWidth: '500px',
+                    height: 'auto',
+                    borderRadius: '16px',
+                    boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
+                  }}
+                />
+              </div>
             </div>
           </motion.div>
 
