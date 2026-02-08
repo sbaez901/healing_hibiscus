@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -23,6 +24,18 @@ export default function Footer() {
         >
           {/* Brand */}
           <div>
+            <Image
+              src="/logo-transparent.png"
+              alt="The Healing Hibiscus"
+              width={100}
+              height={100}
+              style={{
+                width: '100px',
+                height: 'auto',
+                marginBottom: '16px',
+                borderRadius: '12px',
+              }}
+            />
             <p
               style={{
                 fontFamily: "'Crimson Text', serif",
