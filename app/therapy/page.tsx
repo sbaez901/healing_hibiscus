@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function TherapyPage() {
@@ -18,57 +17,6 @@ export default function TherapyPage() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#F9EFE3' }}>
-      {/* Navigation */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        backgroundColor: 'rgba(249, 239, 227, 0.95)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid #e5e5e5'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '16px 40px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Link href="/">
-            <Image
-              src="/logo-transparent.png"
-              alt="The Healing Hibiscus"
-              width={70}
-              height={70}
-              style={{ width: '70px', height: 'auto', mixBlendMode: 'darken' }}
-            />
-          </Link>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <Link href="/about" style={{ color: '#4a4a4a', textDecoration: 'none', fontSize: '1rem' }}>
-              About
-            </Link>
-            <Link href="/therapy" style={{ color: '#1a1a1a', textDecoration: 'none', fontSize: '1rem', fontWeight: 600 }}>
-              Services
-            </Link>
-            <Link 
-              href="/contact"
-              style={{ 
-                backgroundColor: '#D4B5B0', 
-                color: '#1a1a1a', 
-                padding: '12px 28px', 
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: 500
-              }}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
 
       {/* Hero */}
       <section style={{ paddingTop: '180px', paddingBottom: '80px', paddingLeft: '40px', paddingRight: '40px' }}>
@@ -196,6 +144,7 @@ export default function TherapyPage() {
           >
             <Link
               href="/contact"
+              className="cta-button"
               style={{ 
                 display: 'inline-block',
                 backgroundColor: '#D4B5B0', 
@@ -213,17 +162,6 @@ export default function TherapyPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ 
-        padding: '48px 40px', 
-        backgroundColor: '#F9EFE3', 
-        borderTop: '1px solid #e5e5e5',
-        textAlign: 'center'
-      }}>
-        <p style={{ color: '#6a6a6a', fontSize: '0.875rem' }}>
-          © {new Date().getFullYear()} The Healing Hibiscus. All rights reserved.
-        </p>
-      </footer>
     </div>
   );
 }

@@ -1,242 +1,297 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navigation() {
-  const [aboutOpen, setAboutOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
+
+  const navLinks = [
+    { href: '/about', label: 'About' },
+    { href: '/therapy', label: 'Therapy' },
+    { href: '/supervision', label: 'Supervision' },
+    { href: '/consulting', label: 'Consulting' },
+    { href: '/contact', label: 'Contact' },
+  ];
+
+  const isActive = (href: string) => pathname === href;
 
   return (
-    <nav className="bg-white border-b border-[var(--color-grey-dark)]/20 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+    <>
+      <nav
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          backgroundColor: scrolled || !isHome
+            ? 'rgba(249, 239, 227, 0.97)'
+            : 'transparent',
+          backdropFilter: scrolled || !isHome ? 'blur(12px)' : 'none',
+          borderBottom: scrolled || !isHome ? '1px solid rgba(212, 181, 176, 0.3)' : '1px solid transparent',
+          transition: 'all 0.4s ease',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '14px 24px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <Image
               src="/logo-transparent.png"
               alt="The Healing Hibiscus"
-              width={180}
+              width={60}
               height={60}
-              className="h-12 w-auto"
-              priority
+              style={{
+                width: '60px',
+                height: 'auto',
+                mixBlendMode: 'darken',
+                opacity: scrolled || !isHome ? 1 : 0,
+                transition: 'opacity 0.4s ease',
+              }}
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {/* About Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setAboutOpen(true)}
-              onMouseLeave={() => setAboutOpen(false)}
-            >
-              <button className="text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors font-medium">
-                About
-              </button>
-              {aboutOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-[var(--color-grey-dark)]/20 shadow-lg rounded-md py-2">
-                  <Link
-                    href="/about"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    About Us
-                  </Link>
-                  <Link
-                    href="/about#team"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    Meet Our Team
-                  </Link>
-                  <Link
-                    href="/blog"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    Blog
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Services Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <button className="text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors font-medium">
-                Our Services
-              </button>
-              {servicesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-[var(--color-grey-dark)]/20 shadow-lg rounded-md py-2">
-                  <Link
-                    href="/therapy"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    Therapy
-                  </Link>
-                  <Link
-                    href="/consulting"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    Organizational Consulting
-                  </Link>
-                  <Link
-                    href="/supervision"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    Clinical Supervision
-                  </Link>
-                  <Link
-                    href="/resources"
-                    className="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:bg-[var(--color-pink-peach)]/30 hover:text-[var(--color-red)] transition-colors"
-                  >
-                    Resources
-                  </Link>
-                </div>
-              )}
-            </div>
-
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+            className="desktop-nav"
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  color: isActive(link.href) ? '#1a1a1a' : '#5a5a5a',
+                  textDecoration: 'none',
+                  fontSize: '0.925rem',
+                  fontWeight: isActive(link.href) ? 600 : 400,
+                  padding: '8px 16px',
+                  borderRadius: '8px',
+                  transition: 'all 0.2s ease',
+                  backgroundColor: isActive(link.href) ? 'rgba(212, 181, 176, 0.2)' : 'transparent',
+                  letterSpacing: '0.01em',
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive(link.href)) {
+                    e.currentTarget.style.color = '#1a1a1a';
+                    e.currentTarget.style.backgroundColor = 'rgba(212, 181, 176, 0.12)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive(link.href)) {
+                    e.currentTarget.style.color = '#5a5a5a';
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
               href="/contact"
-              className="text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors font-medium"
+              style={{
+                backgroundColor: '#D4B5B0',
+                color: '#1a1a1a',
+                padding: '10px 24px',
+                borderRadius: '10px',
+                textDecoration: 'none',
+                fontWeight: 500,
+                fontSize: '0.925rem',
+                marginLeft: '8px',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#c9a9a3';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(212, 181, 176, 0.4)';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '#D4B5B0';
+                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
-              Contact
-            </Link>
-
-            <Link
-              href="/contact#request"
-              className="bg-[var(--color-red)] text-white px-6 py-2 rounded-full hover:bg-[var(--color-red)]/90 transition-colors font-medium"
-            >
-              Request Therapy
+              Get Started
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-[var(--color-charcoal)]"
+          {/* Mobile Hamburger */}
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="mobile-menu-btn"
             aria-label="Toggle menu"
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '8px',
+              zIndex: 110,
+            }}
           >
-            {mobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
+            <div style={{ width: '24px', height: '18px', position: 'relative' }}>
+              <span
+                style={{
+                  display: 'block',
+                  width: '24px',
+                  height: '2px',
+                  backgroundColor: '#1a1a1a',
+                  borderRadius: '2px',
+                  position: 'absolute',
+                  transition: 'all 0.3s ease',
+                  top: mobileMenuOpen ? '8px' : '0',
+                  transform: mobileMenuOpen ? 'rotate(45deg)' : 'none',
+                }}
+              />
+              <span
+                style={{
+                  display: 'block',
+                  width: '24px',
+                  height: '2px',
+                  backgroundColor: '#1a1a1a',
+                  borderRadius: '2px',
+                  position: 'absolute',
+                  top: '8px',
+                  transition: 'all 0.3s ease',
+                  opacity: mobileMenuOpen ? 0 : 1,
+                }}
+              />
+              <span
+                style={{
+                  display: 'block',
+                  width: '24px',
+                  height: '2px',
+                  backgroundColor: '#1a1a1a',
+                  borderRadius: '2px',
+                  position: 'absolute',
+                  transition: 'all 0.3s ease',
+                  top: mobileMenuOpen ? '8px' : '16px',
+                  transform: mobileMenuOpen ? 'rotate(-45deg)' : 'none',
+                }}
+              />
+            </div>
           </button>
         </div>
+      </nav>
 
-        {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[var(--color-grey-dark)]/20 py-4">
-            <div className="space-y-4">
-              <div>
-                <button
-                  onClick={() => setAboutOpen(!aboutOpen)}
-                  className="w-full text-left text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors font-medium flex items-center justify-between"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 90,
+              backgroundColor: 'rgba(249, 239, 227, 0.98)',
+              backdropFilter: 'blur(20px)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+          >
+            {navLinks.map((link, i) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ delay: i * 0.05, duration: 0.3 }}
+              >
+                <Link
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'block',
+                    padding: '16px 32px',
+                    fontSize: '1.5rem',
+                    fontFamily: "'Crimson Text', serif",
+                    fontWeight: isActive(link.href) ? 700 : 400,
+                    color: isActive(link.href) ? '#1a1a1a' : '#4a4a4a',
+                    textDecoration: 'none',
+                    textAlign: 'center',
+                    borderBottom: isActive(link.href) ? '2px solid #D4B5B0' : '2px solid transparent',
+                  }}
                 >
-                  About
-                  <svg className={`w-4 h-4 transition-transform ${aboutOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {aboutOpen && (
-                  <div className="pl-4 mt-2 space-y-2">
-                    <Link
-                      href="/about"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      About Us
-                    </Link>
-                    <Link
-                      href="/about#team"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Meet Our Team
-                    </Link>
-                    <Link
-                      href="/blog"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Blog
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <button
-                  onClick={() => setServicesOpen(!servicesOpen)}
-                  className="w-full text-left text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors font-medium flex items-center justify-between"
-                >
-                  Our Services
-                  <svg className={`w-4 h-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {servicesOpen && (
-                  <div className="pl-4 mt-2 space-y-2">
-                    <Link
-                      href="/therapy"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Therapy
-                    </Link>
-                    <Link
-                      href="/consulting"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Organizational Consulting
-                    </Link>
-                    <Link
-                      href="/supervision"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Clinical Supervision
-                    </Link>
-                    <Link
-                      href="/resources"
-                      className="block text-sm text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      Resources
-                    </Link>
-                  </div>
-                )}
-              </div>
-
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ delay: navLinks.length * 0.05, duration: 0.3 }}
+              style={{ marginTop: '16px' }}
+            >
               <Link
                 href="/contact"
-                className="block text-[var(--color-charcoal)] hover:text-[var(--color-red)] transition-colors font-medium"
                 onClick={() => setMobileMenuOpen(false)}
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: '#D4B5B0',
+                  color: '#1a1a1a',
+                  padding: '16px 48px',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  fontSize: '1.125rem',
+                  fontWeight: 500,
+                }}
               >
-                Contact
+                Get Started
               </Link>
-
-              <Link
-                href="/contact#request"
-                className="block bg-[var(--color-red)] text-white px-6 py-2 rounded-full hover:bg-[var(--color-red)]/90 transition-colors font-medium text-center"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Request Therapy
-              </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-      </div>
-    </nav>
+      </AnimatePresence>
+    </>
   );
 }
-

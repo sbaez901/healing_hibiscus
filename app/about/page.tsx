@@ -4,68 +4,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
+
 export default function AboutPage() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#F9EFE3' }}>
-      {/* Navigation */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        backgroundColor: 'rgba(249, 239, 227, 0.95)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid #e5e5e5'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '16px 40px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Link href="/">
-            <Image
-              src="/logo-transparent.png"
-              alt="The Healing Hibiscus"
-              width={70}
-              height={70}
-              style={{ width: '70px', height: 'auto', mixBlendMode: 'darken' }}
-            />
-          </Link>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <Link href="/about" style={{ color: '#1a1a1a', textDecoration: 'none', fontSize: '1rem', fontWeight: 600 }}>
-              About
-            </Link>
-            <Link href="/therapy" style={{ color: '#4a4a4a', textDecoration: 'none', fontSize: '1rem' }}>
-              Services
-            </Link>
-            <Link 
-              href="/contact"
-              style={{ 
-                backgroundColor: '#D4B5B0', 
-                color: '#1a1a1a', 
-                padding: '12px 28px', 
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: 500
-              }}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
 
       {/* Hero */}
       <section style={{ paddingTop: '180px', paddingBottom: '80px', paddingLeft: '40px', paddingRight: '40px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '48px' }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            style={{ flex: '1 1 300px' }}
           >
             <h1 style={{ 
               fontSize: 'clamp(3rem, 6vw, 4.5rem)', 
@@ -85,6 +36,27 @@ export default function AboutPage() {
               Licensed Independent Clinical Social Worker
             </p>
           </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            style={{ flex: '0 0 auto' }}
+          >
+            <Image
+              src="/headshot-2.jpg"
+              alt="Marienelly Vazquez, LICSW"
+              width={320}
+              height={400}
+              style={{
+                width: '320px',
+                height: 'auto',
+                borderRadius: '20px',
+                objectFit: 'cover',
+                boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
+              }}
+              priority
+            />
+          </motion.div>
         </div>
       </section>
 
@@ -92,7 +64,7 @@ export default function AboutPage() {
       <section style={{ paddingBottom: '120px', paddingLeft: '40px', paddingRight: '40px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           
-          {/* Philosophy */}
+          {/* About Me */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,28 +79,19 @@ export default function AboutPage() {
               color: '#1a1a1a', 
               marginBottom: '24px'
             }}>
-              My Philosophy
+              About Me
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
-                As a politicized healer, I believe therapy can be a transformational and liberating process. 
-                I welcome you to bring your whole self, by creating a space where you will be met with 
-                authenticity and non-judgement.
+                I&apos;m Marienelly Vazquez (she/her/ella), a bicultural (puertorriqueña) and bilingual (English and Spanish) therapist residing and practicing in the state of Massachusetts. I specialize in working with women, BIPOC, and non-binary individuals who are seeking to heal from trauma, navigate life transitions, or explore issues related to culture or racial identity. I&apos;m especially passionate about working with survivors of domestic and sexual violence who are looking for long-term support as they reclaim their power.
               </p>
               <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
-                I am passionate about bearing witness to a multitude of human stories and experiences. 
-                In my practice, as in my life, I am committed to increasing access to healing, justice, 
-                and care for those who are most marginalized.
-              </p>
-              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
-                I focus on working with BIPOC and Latinx clients, transgender and gender diverse individuals, 
-                folks from queer, bisexual, asexual, lesbian, and gay communities, folks who practice BDSM 
-                and/or non-monogamy, activists, neurodivergent people, and survivors of trauma and oppression.
+                As an Indigenous (Taíno), first-generation Latina, it is important to me to incorporate a decolonization lens that seeks to challenge and dismantle traditional power structures present in the therapeutic relationship and subsequent treatment. Traditional therapy can often devalue or dismiss the experiences of people of color. In my practice, I aim to honor each individual&apos;s values, traditions, and beliefs as they relate to their culture and to utilize them as sources of wisdom and strength throughout our sessions.
               </p>
             </div>
           </motion.div>
 
-          {/* Approach */}
+          {/* My Approach */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -152,19 +115,18 @@ export default function AboutPage() {
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
-                My therapeutic approach integrates influences from a range of theoretical frameworks including 
-                social justice, trauma-focused, liberation health, disability justice, mindfulness, psychodynamic, 
-                and CBT (cognitive-behavioral therapy).
+                I believe that therapy should be a collaborative process that creates a safe space to identify areas of change, growth, and healing. When working with individuals, I strive to see the whole person through a systems framework. This allows me to view people within the context of their lived experiences rather than focusing solely on their &ldquo;presenting problem&rdquo; or symptoms related to seeking therapy.
               </p>
               <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
-                I work from a liberation health, trauma-informed, and transformative justice perspective that 
-                seeks to integrate the impacts of systems of oppression, cultural influences, and personal 
-                experiences into the liberatory and healing journeys of my clients.
+                I would describe my approach as eclectic, as it incorporates many theories and modalities, including psychodynamic therapy, cognitive behavioral therapy, narrative therapy, dialectical behavior therapy, the liberation health model, intersectionality and feminist theories, trauma-informed therapy, social justice, and decolonization.
+              </p>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                Whether you are just beginning your journey in therapy or looking to continue the work you have already done, my hope for all my clients is to assist them in their transformation from survivor to thriver. Throughout my years in this field, I have consistently found that when the therapeutic relationship is grounded in compassionate care, respect, and dignity for the person, healing is possible.
               </p>
             </div>
           </motion.div>
 
-          {/* Experience */}
+          {/* Professional Background and Work Experience */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -179,13 +141,62 @@ export default function AboutPage() {
               color: '#1a1a1a', 
               marginBottom: '24px'
             }}>
-              Experience
+              Professional Background &amp; Work Experience
             </h2>
-            <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
-              I have nearly two decades of experience working with survivors of trauma, people of color, 
-              and LGBTQA+ communities through advocacy, clinical supervision, individual and group therapy, 
-              mentorship, and organizational planning.
-            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                In 2014, I earned my Bachelor&apos;s degree in Psychology and Sociology, with a minor in Criminal Justice, from the University of Massachusetts Amherst. During my time there, I interned at a local sexuality shop in Northampton, MA, the Regional Women&apos;s Correctional Center in Chicopee, and worked as a teacher&apos;s assistant and a laboratory assistant in the Cognitive Psychology laboratories. I also volunteered as a counselor/advocate at the Center for Women and Community in Amherst, MA. In this role, I accompanied survivors of sexual assault and violence to local emergency rooms for evidence collection and answered the organization&apos;s 24/7 hotline, providing information and crisis support.
+              </p>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                In 2015, I began my career as a rape crisis advocate, with a focus on responding to campus sexual assault. For seven years, I assisted in growing the initiative from a single position into a team of campus-based advocates across Central Massachusetts. I conducted programming for school judicial boards, Title IX officers, new student orientations, and residential life staff, while also providing ongoing counseling and advocacy services to survivors of sexual violence. During this time, I earned my Master of Social Work (MSW) from Boston University in 2019 and worked per diem providing therapy to children, adults, and families at a local non-profit organization.
+              </p>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                In 2022, I transitioned to a local domestic violence organization as the Clinical Director of its counseling program. I was responsible for overseeing Domestic Violence 101 classes, the MSW internship program, and providing direct therapy to clients experiencing PTSD, anxiety, or depression related to domestic violence or coercive control.
+              </p>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                In 2025, I made the decision to begin private practice and established The Healing Hibiscus, PLLC. The official flower of Puerto Rico is the Flor de Maga, which is informally referred to as the &ldquo;Puerto Rican hibiscus.&rdquo;
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Land Acknowledgment */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            style={{ 
+              backgroundColor: '#E8E4E0', 
+              padding: '48px', 
+              borderRadius: '20px',
+              marginBottom: '80px'
+            }}
+          >
+            <h2 style={{ 
+              fontSize: '2.25rem', 
+              fontFamily: "'Crimson Text', serif",
+              fontWeight: 600,
+              color: '#1a1a1a', 
+              marginBottom: '24px'
+            }}>
+              Land Acknowledgment
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                Marienelly respectfully acknowledges the fact that this work is being conducted on the ancestral and unceded lands of the Agawam and Nipmuc People of Massachusetts. She also acknowledges her debt to enslaved Africans, whose labor and suffering built and grew the economy and infrastructure of a nation that does not recognize their humanity.
+              </p>
+              <p style={{ fontSize: '1.125rem', color: '#4a4a4a', lineHeight: 1.8 }}>
+                For more information regarding the land you reside on, and these tribes, visit:{' '}
+                <a 
+                  href="https://native-land.ca/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ color: '#8B6F5E', textDecoration: 'underline' }}
+                >
+                  native-land.ca
+                </a>
+              </p>
+            </div>
           </motion.div>
 
           {/* CTA */}
@@ -198,6 +209,7 @@ export default function AboutPage() {
           >
             <Link
               href="/contact"
+              className="cta-button"
               style={{ 
                 display: 'inline-block',
                 backgroundColor: '#D4B5B0', 
@@ -215,17 +227,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ 
-        padding: '48px 40px', 
-        backgroundColor: '#F9EFE3', 
-        borderTop: '1px solid #e5e5e5',
-        textAlign: 'center'
-      }}>
-        <p style={{ color: '#6a6a6a', fontSize: '0.875rem' }}>
-          © {new Date().getFullYear()} The Healing Hibiscus. All rights reserved.
-        </p>
-      </footer>
     </div>
   );
 }

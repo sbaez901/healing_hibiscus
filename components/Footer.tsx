@@ -1,65 +1,165 @@
+'use client';
+
 import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--color-charcoal)] text-white mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer
+      style={{
+        backgroundColor: '#1a1a1a',
+        color: '#ffffff',
+        padding: '80px 40px 48px',
+      }}
+    >
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* Top Section */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '48px',
+            marginBottom: '64px',
+          }}
+        >
+          {/* Brand */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">The Healing Hibiscus, PLLC</h3>
-            <p className="text-sm text-gray-300">
-              Mental Health Therapy and Consulting Services
+            <p
+              style={{
+                fontFamily: "'Crimson Text', serif",
+                fontSize: '1.5rem',
+                fontWeight: 600,
+                marginBottom: '12px',
+                lineHeight: 1.3,
+              }}
+            >
+              The Healing Hibiscus
+            </p>
+            <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9375rem', lineHeight: 1.6 }}>
+              Mental Health Therapy &amp; Consulting Services
             </p>
           </div>
-          
+
+          {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wide">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/therapy" className="text-gray-300 hover:text-[var(--color-pink-peach)] transition-colors">
-                  Therapy
+            <h4
+              style={{
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                color: '#D4B5B0',
+                marginBottom: '24px',
+              }}
+            >
+              Services
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {[
+                { href: '/therapy', label: 'Individual Therapy' },
+                { href: '/supervision', label: 'Clinical Supervision' },
+                { href: '/consulting', label: 'Training & Consultation' },
+                { href: '/about', label: 'About' },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    color: 'rgba(255,255,255,0.6)',
+                    textDecoration: 'none',
+                    fontSize: '0.9375rem',
+                    transition: 'color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = '#D4B5B0'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+                >
+                  {link.label}
                 </Link>
-              </li>
-              <li>
-                <Link href="/consulting" className="text-gray-300 hover:text-[var(--color-pink-peach)] transition-colors">
-                  Consulting
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-[var(--color-pink-peach)] transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-[var(--color-pink-peach)] transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
-          
+
+          {/* Contact Info */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wide">Contact</h4>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li>(774) 293-2690</li>
-              <li>
-                <a href="mailto:marienellylicsw@gmail.com" className="hover:text-[var(--color-pink-peach)] transition-colors">
-                  marienellylicsw@gmail.com
-                </a>
-              </li>
-              <li>204 Main Street<br />Shrewsbury, MA 01545</li>
-            </ul>
+            <h4
+              style={{
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                color: '#D4B5B0',
+                marginBottom: '24px',
+              }}
+            >
+              Contact
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', color: 'rgba(255,255,255,0.6)', fontSize: '0.9375rem' }}>
+              <a
+                href="tel:7742932690"
+                style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#D4B5B0'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+              >
+                (774) 293-2690
+              </a>
+              <a
+                href="mailto:marienellylicsw@gmail.com"
+                style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#D4B5B0'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
+              >
+                marienellylicsw@gmail.com
+              </a>
+              <p style={{ lineHeight: 1.6 }}>
+                204 Main Street<br />
+                Shrewsbury, MA 01545
+              </p>
+            </div>
+          </div>
+
+          {/* Availability */}
+          <div>
+            <h4
+              style={{
+                fontSize: '0.8125rem',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                color: '#D4B5B0',
+                marginBottom: '24px',
+              }}
+            >
+              Availability
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'rgba(255,255,255,0.6)', fontSize: '0.9375rem' }}>
+              <p>In-person &amp; telehealth</p>
+              <p>English &amp; Spanish</p>
+              <p style={{ fontStyle: 'italic', fontFamily: "'Crimson Text', serif", fontSize: '1rem' }}>
+                Terapia disponible en español
+              </p>
+            </div>
           </div>
         </div>
-        
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} The Healing Hibiscus, PLLC. All rights reserved.</p>
+
+        {/* Divider */}
+        <div
+          style={{
+            borderTop: '1px solid rgba(255,255,255,0.1)',
+            paddingTop: '32px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '16px',
+          }}
+        >
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem' }}>
+            © {new Date().getFullYear()} The Healing Hibiscus, PLLC. All rights reserved.
+          </p>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8125rem' }}>
+            Shrewsbury, Massachusetts
+          </p>
         </div>
       </div>
     </footer>
   );
 }
-
-
-
-

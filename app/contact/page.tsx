@@ -1,63 +1,40 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
+import { useState, FormEvent } from 'react';
 import { motion } from 'framer-motion';
 
 export default function ContactPage() {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus('submitting');
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xlgwddpv', {
+        method: 'POST',
+        body: data,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        form.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  }
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#F9EFE3' }}>
-      {/* Navigation */}
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        backgroundColor: 'rgba(249, 239, 227, 0.95)',
-        backdropFilter: 'blur(10px)',
-        borderBottom: '1px solid #e5e5e5'
-      }}>
-        <div style={{
-          maxWidth: '1400px',
-          margin: '0 auto',
-          padding: '16px 40px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Link href="/">
-            <Image
-              src="/logo-transparent.png"
-              alt="The Healing Hibiscus"
-              width={70}
-              height={70}
-              style={{ width: '70px', height: 'auto', mixBlendMode: 'darken' }}
-            />
-          </Link>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <Link href="/about" style={{ color: '#4a4a4a', textDecoration: 'none', fontSize: '1rem' }}>
-              About
-            </Link>
-            <Link href="/therapy" style={{ color: '#4a4a4a', textDecoration: 'none', fontSize: '1rem' }}>
-              Services
-            </Link>
-            <Link 
-              href="/contact"
-              style={{ 
-                backgroundColor: '#D4B5B0', 
-                color: '#1a1a1a', 
-                padding: '12px 28px', 
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: 600
-              }}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
 
       {/* Hero */}
       <section style={{ paddingTop: '180px', paddingBottom: '80px', paddingLeft: '40px', paddingRight: '40px' }}>
@@ -180,92 +157,202 @@ export default function ContactPage() {
               Request Consultation
             </h2>
             <p style={{ fontSize: '1.0625rem', color: '#4a4a4a', marginBottom: '32px' }}>
-              Fill out the form below and we'll get back to you as soon as possible.
+              Fill out the form below and we&apos;ll get back to you as soon as possible.
             </p>
-            <form style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+
+            {/* Success Message */}
+            {status === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  backgroundColor: '#e8f5e9',
+                  border: '1px solid #a5d6a7',
+                  borderRadius: '12px',
+                  padding: '20px 24px',
+                  marginBottom: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" strokeWidth="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" strokeLinecap="round" strokeLinejoin="round"/>
+                  <polyline points="22 4 12 14.01 9 11.01" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <div>
+                  <p style={{ fontWeight: 600, color: '#2e7d32', marginBottom: '4px' }}>Message sent successfully!</p>
+                  <p style={{ color: '#388e3c', fontSize: '0.9375rem' }}>Thank you for reaching out. We&apos;ll get back to you soon.</p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Error Message */}
+            {status === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{
+                  backgroundColor: '#fbe9e7',
+                  border: '1px solid #ef9a9a',
+                  borderRadius: '12px',
+                  padding: '20px 24px',
+                  marginBottom: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                }}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c62828" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="15" y1="9" x2="9" y2="15"/>
+                  <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+                <div>
+                  <p style={{ fontWeight: 600, color: '#c62828', marginBottom: '4px' }}>Something went wrong</p>
+                  <p style={{ color: '#d32f2f', fontSize: '0.9375rem' }}>Please try again, or email us directly at marienellylicsw@gmail.com</p>
+                </div>
+              </motion.div>
+            )}
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    required
+                    style={{ 
+                      width: '100%', 
+                      padding: '16px', 
+                      border: '1px solid #e5e5e5', 
+                      borderRadius: '10px',
+                      fontSize: '1rem',
+                      backgroundColor: '#fafafa',
+                      transition: 'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="(555) 000-0000"
+                    style={{ 
+                      width: '100%', 
+                      padding: '16px', 
+                      border: '1px solid #e5e5e5', 
+                      borderRadius: '10px',
+                      fontSize: '1rem',
+                      backgroundColor: '#fafafa',
+                      transition: 'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+                    }}
+                  />
+                </div>
+              </div>
               <div>
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
-                  Name
+                  Email *
                 </label>
                 <input
-                  type="text"
-                  placeholder="Your name"
+                  type="email"
+                  name="email"
+                  placeholder="your.email@example.com"
+                  required
                   style={{ 
                     width: '100%', 
                     padding: '16px', 
                     border: '1px solid #e5e5e5', 
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     fontSize: '1rem',
-                    outline: 'none'
+                    backgroundColor: '#fafafa',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
                   }}
                 />
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
-                  Email
+                  What are you looking for? *
                 </label>
-                <input
-                  type="email"
-                  placeholder="your.email@example.com"
+                <select
+                  name="service"
+                  required
                   style={{ 
                     width: '100%', 
                     padding: '16px', 
                     border: '1px solid #e5e5e5', 
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     fontSize: '1rem',
-                    outline: 'none'
+                    backgroundColor: '#fafafa',
+                    color: '#4a4a4a',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+                    appearance: 'none',
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236a6a6a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 16px center',
                   }}
-                />
+                >
+                  <option value="">Select a service...</option>
+                  <option value="Individual Therapy">Individual Therapy</option>
+                  <option value="Clinical Supervision">Clinical Supervision</option>
+                  <option value="Training & Consultation">Training &amp; Consultation</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               <div>
                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#1a1a1a', marginBottom: '8px' }}>
                   Message
                 </label>
                 <textarea
+                  name="message"
                   rows={5}
                   placeholder="Tell us about how we can help..."
                   style={{ 
                     width: '100%', 
                     padding: '16px', 
                     border: '1px solid #e5e5e5', 
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     fontSize: '1rem',
-                    outline: 'none',
-                    resize: 'none'
+                    backgroundColor: '#fafafa',
+                    resize: 'vertical',
+                    minHeight: '120px',
+                    transition: 'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
                   }}
                 />
               </div>
               <button
                 type="submit"
+                disabled={status === 'submitting'}
+                className="cta-button"
                 style={{ 
-                  backgroundColor: '#D4B5B0', 
+                  backgroundColor: status === 'submitting' ? '#c9b3ae' : '#D4B5B0', 
                   color: '#1a1a1a', 
                   padding: '20px',
                   borderRadius: '12px',
                   border: 'none',
                   fontSize: '1.125rem',
                   fontWeight: 500,
-                  cursor: 'pointer'
+                  cursor: status === 'submitting' ? 'not-allowed' : 'pointer',
+                  marginTop: '8px',
+                  opacity: status === 'submitting' ? 0.7 : 1,
+                  transition: 'all 0.2s ease',
                 }}
               >
-                Send Message
+                {status === 'submitting' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ 
-        padding: '48px 40px', 
-        backgroundColor: '#F9EFE3', 
-        borderTop: '1px solid #e5e5e5',
-        textAlign: 'center'
-      }}>
-        <p style={{ color: '#6a6a6a', fontSize: '0.875rem' }}>
-          © {new Date().getFullYear()} The Healing Hibiscus. All rights reserved.
-        </p>
-      </footer>
     </div>
   );
 }

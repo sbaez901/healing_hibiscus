@@ -632,23 +632,6 @@ export default function Home() {
 
 
 
-      {/* ============ FOOTER ============ */}
-      <motion.footer 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        style={{ 
-          padding: '48px 40px', 
-          backgroundColor: '#F9EFE3', 
-          borderTop: '1px solid #e5e5e5',
-          textAlign: 'center'
-        }}
-      >
-        <p style={{ color: '#6a6a6a', fontSize: '0.875rem' }}>
-          © {new Date().getFullYear()} The Healing Hibiscus. All rights reserved.
-        </p>
-      </motion.footer>
     </main>
   );
 }

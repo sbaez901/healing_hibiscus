@@ -42,3 +42,45 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}
+
+/* Smooth focus styles for form inputs */
+input:focus,
+textarea:focus {
+  border-color: #D4B5B0 !important;
+  box-shadow: 0 0 0 3px rgba(212, 181, 176, 0.25) !important;
+  outline: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Button hover transition helper */
+.cta-button {
+  transition: all 0.25s ease !important;
+}
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 181, 176, 0.4);
+}
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* Smooth link transitions */
+a {
+  transition: color 0.2s ease;
+}
+
+/* Better selection color */
+::selection {
+  background-color: rgba(212, 181, 176, 0.4);
+  color: #1a1a1a;
+}
